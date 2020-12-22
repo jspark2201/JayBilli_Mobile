@@ -1,0 +1,6 @@
+package com.jaybilli.jaybilli_mobile
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}
