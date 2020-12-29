@@ -24,17 +24,21 @@ class _SignUpPageState extends State<SignUpPage> {
         builder: (context, snapshot) {
           return Scaffold(
             appBar: AppBar(
-              title: Center(child: Text('Jay Billi 회원가입')),
+              title: Center(child: Text('회원가입')),
+              actions: [
+                SizedBox(
+                  width: 56.0,
+                )
+              ],
             ),
             body: SafeArea(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: signUpForm(),
               ),
             ),
           );
-        }
-    );
+        });
   }
 
   Widget signUpForm() {
@@ -93,11 +97,14 @@ class _SignUpPageState extends State<SignUpPage> {
             child: RaisedButton(
               color: Colors.blue,
               onPressed: () {
-                if(_formKey.currentState.validate()) {
+                if (_formKey.currentState.validate()) {
                   _register;
                 }
               },
-              child: Text('가입하기', style: TextStyle(color: Colors.white),),
+              child: Text(
+                '가입하기',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         ],
@@ -110,12 +117,11 @@ class _SignUpPageState extends State<SignUpPage> {
     try {
       final AuthResult result = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-          email: _idController.text + '@gmail.com',
-          password: _pwController.text);
+              email: _idController.text + '@gmail.com',
+              password: _pwController.text);
 
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => SignUpCompletePage())
-      );
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => SignUpCompletePage()));
     } catch (error) {
       switch (error.code) {
         case "ERROR_INVALID_EMAIL":
@@ -169,14 +175,14 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void showToast(String message) {
-    Fluttertoast.showToast(msg: message,
+    Fluttertoast.showToast(
+      msg: message,
       backgroundColor: Colors.black,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
     );
   }
 }
-
 
 class SignUpCompletePage extends StatelessWidget {
   @override
@@ -186,17 +192,24 @@ class SignUpCompletePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Center(child: Text('가입 완료', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)),
-            SizedBox(height: 50,),
+            Center(
+                child: Text(
+              '가입 완료',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            )),
+            SizedBox(
+              height: 50,
+            ),
             Center(
               child: RaisedButton(
                 color: Colors.blue,
                 onPressed: () {
-                  Navigator.pushReplacement(
-                      context, MaterialPageRoute(builder: (context) => SignUpPage())
-                  );
+                  Navigator.pop(context);
                 },
-                child: Text('확인', style: TextStyle(color: Colors.white),),
+                child: Text(
+                  '확인',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             )
           ],

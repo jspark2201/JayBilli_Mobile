@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jaybilli_mobile/rootPage.dart';
 import 'package:jaybilli_mobile/signUpPage.dart';
 
 void main() {
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SignUpPage(),
+      home: RootPage(),
     );
   }
 }
