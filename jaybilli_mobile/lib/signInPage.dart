@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:jaybilli_mobile/signUpPage.dart';
+import 'package:jaybilli_mobile/signUpPageActivity.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -119,7 +120,7 @@ class _SignInPageState extends State<SignInPage> {
                       TextSpan(
                           text: '가입하기', style: TextStyle(color: Colors.blue, fontSize: 16.0),
                           recognizer: TapGestureRecognizer()..onTap = () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPageActivity()));
                           }),
                     ]),
               ),
