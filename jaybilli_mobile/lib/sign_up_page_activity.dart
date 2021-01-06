@@ -39,7 +39,13 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
                 child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: signUpForm(),
+                child: Column(
+                  children: [
+                    Text('약관동의'),
+                    Container(width: _size.width, height: 1, color: Colors.grey,),
+                    signUpForm()
+                  ],
+                ),
               ),
             )),
           );

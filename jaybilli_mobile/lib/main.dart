@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jaybilli_mobile/rootPage.dart';
-import 'package:jaybilli_mobile/signUpPage.dart';
+import 'package:jaybilli_mobile/root_page.dart';
 
 void main() {
   runApp(MyApp());

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:jaybilli_mobile/signInPage.dart';
+import 'package:jaybilli_mobile/sign_in_page.dart';
+import 'package:jaybilli_mobile/sign_in_page.dart';
 
 class MyAccountPage extends StatefulWidget {
   @override
