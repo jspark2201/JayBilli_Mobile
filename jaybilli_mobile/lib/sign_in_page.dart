@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:jaybilli_mobile/signUpPageActivity.dart';
+import 'package:jaybilli_mobile/sign_up_page_activity.dart';
 
 class SignInPage extends StatefulWidget {
   @override
