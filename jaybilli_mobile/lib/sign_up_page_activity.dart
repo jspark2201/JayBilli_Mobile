@@ -55,9 +55,9 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
                   controller: _pageController,
                   physics: NeverScrollableScrollPhysics(),
                   children: [
-                    test()
-                    // signUpForm1(),
-                    // signUpForm2(),
+                    //test()
+                    signUpForm1(),
+                    signUpForm2(),
                     //signUpForm3(),
                   ],
                 ),
@@ -107,198 +107,199 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
 
   Widget signUpForm1() {
     return Column(
-      mainAxisSize: MainAxisSize.min,
       children: [
         _indicator(1),
         Container(
           height: 30,
-          color: Colors.yellow,
         ),
         Flexible(
           flex: 1,
-          fit: FlexFit.loose,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Text(
-                  '약관동의',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  color: Colors.grey[300],
-                  height: 1,
-                ),
-                Row(
+          child: CustomScrollView(
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Checkbox(
-                      value: _clause1IsChecked,
-                      onChanged: (bool value) {
-                        setState(() {
-                          _clause1IsChecked = value;
-                        });
-                      },
+                    Padding(
+                      padding: const EdgeInsets.only(bottom:8.0),
+                      child: Text(
+                        '약관동의',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    Text('이용약관1(필수)'),
-                    IconButton(
-                        icon: _clause1Visible
-                            ? Icon(Icons.arrow_drop_up)
-                            : Icon(Icons.arrow_drop_down),
-                        onPressed: () {
-                          setState(() {
-                            _clause1Visible = !_clause1Visible;
-                          });
-                        }),
-                  ],
-                ),
-                Visibility(
-                  visible: _clause1Visible,
-                  child: Container(
-                    width: 300,
-                    height: 300,
-                    decoration:
-                        BoxDecoration(border: Border.all(color: Colors.grey)),
-                    child: SingleChildScrollView(
-                      child: Text(_contents.content),
+                    Container(
+                      color: Colors.grey[300],
+                      height: 1,
                     ),
-                  ),
-                ),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: _clause2IsChecked,
-                      onChanged: (bool value) {
-                        setState(() {
-                          _clause2IsChecked = value;
-                        });
-                      },
-                    ),
-                    Text('이용약관2(필수)'),
-                    IconButton(
-                        icon: _clause2Visible
-                            ? Icon(Icons.arrow_drop_up)
-                            : Icon(Icons.arrow_drop_down),
-                        onPressed: () {
-                          setState(() {
-                            _clause2Visible = !_clause2Visible;
-                          });
-                        }),
-                  ],
-                ),
-                Visibility(
-                  visible: _clause2Visible,
-                  child: Container(
-                    width: 300,
-                    height: 100,
-                    decoration:
-                        BoxDecoration(border: Border.all(color: Colors.grey)),
-                    child: SingleChildScrollView(
-                      child: Text(_contents.content),
-                    ),
-                  ),
-                ),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: _clause3IsChecked,
-                      onChanged: (bool value) {
-                        setState(() {
-                          _clause3IsChecked = value;
-                        });
-                      },
-                    ),
-                    Text('이용약관3(선택)'),
-                    IconButton(
-                        icon: _clause3Visible
-                            ? Icon(Icons.arrow_drop_up)
-                            : Icon(Icons.arrow_drop_down),
-                        onPressed: () {
-                          setState(() {
-                            _clause3Visible = !_clause3Visible;
-                          });
-                        }),
-                  ],
-                ),
-                Visibility(
-                  visible: _clause3Visible,
-                  child: Container(
-                    width: 300,
-                    height: 100,
-                    decoration:
-                        BoxDecoration(border: Border.all(color: Colors.grey)),
-                    child: SingleChildScrollView(
-                      child: Text(_contents.content),
-                    ),
-                  ),
-                ),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: _clause4IsChecked,
-                      onChanged: (bool value) {
-                        setState(() {
-                          _clause4IsChecked = value;
-                        });
-                      },
-                    ),
-                    Text('이용약관4(선택)'),
-                    IconButton(
-                        icon: _clause4Visible
-                            ? Icon(Icons.arrow_drop_up)
-                            : Icon(Icons.arrow_drop_down),
-                        onPressed: () {
-                          setState(() {
-                            _clause4Visible = !_clause4Visible;
-                          });
-                        }),
-                  ],
-                ),
-                Visibility(
-                  visible: _clause4Visible,
-                  child: Container(
-                    width: 300,
-                    height: 100,
-                    decoration:
-                        BoxDecoration(border: Border.all(color: Colors.grey)),
-                    child: SingleChildScrollView(
-                      child: Text(_contents.content),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: _size.height / 3,
-                ),
-                ButtonTheme(
-                  minWidth: double.infinity,
-                  child: Builder(
-                    builder: (context) {
-                      return RaisedButton(
-                        color: Colors.green,
-                        onPressed: () {
-                          if (_clause1IsChecked && _clause2IsChecked) {
-                            _pageController.jumpToPage(1);
-                          } else {
-                            Scaffold.of(context).showSnackBar(
-                              new SnackBar(
-                                backgroundColor: Colors.red,
-                                duration: Duration(seconds: 1),
-                                content: new Text('이용약관에 동의해 주십시오.'),
-                              ),
-                            );
-                          }
-                        },
-                        child: Text(
-                          '다음',
-                          style: TextStyle(color: Colors.white),
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: _clause1IsChecked,
+                          onChanged: (bool value) {
+                            setState(() {
+                              _clause1IsChecked = value;
+                            });
+                          },
                         ),
-                      );
-                    },
-                  ),
+                        Text('이용약관1(필수)'),
+                        IconButton(
+                            icon: _clause1Visible
+                                ? Icon(Icons.arrow_drop_up)
+                                : Icon(Icons.arrow_drop_down),
+                            onPressed: () {
+                              setState(() {
+                                _clause1Visible = !_clause1Visible;
+                              });
+                            }),
+                      ],
+                    ),
+                    Visibility(
+                      visible: _clause1Visible,
+                      child: Container(
+                        width: 300,
+                        height: 300,
+                        decoration:
+                        BoxDecoration(border: Border.all(color: Colors.grey)),
+                        child: SingleChildScrollView(
+                          child: Text(_contents.content),
+                        ),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: _clause2IsChecked,
+                          onChanged: (bool value) {
+                            setState(() {
+                              _clause2IsChecked = value;
+                            });
+                          },
+                        ),
+                        Text('이용약관2(필수)'),
+                        IconButton(
+                            icon: _clause2Visible
+                                ? Icon(Icons.arrow_drop_up)
+                                : Icon(Icons.arrow_drop_down),
+                            onPressed: () {
+                              setState(() {
+                                _clause2Visible = !_clause2Visible;
+                              });
+                            }),
+                      ],
+                    ),
+                    Visibility(
+                      visible: _clause2Visible,
+                      child: Container(
+                        width: 300,
+                        height: 100,
+                        decoration:
+                        BoxDecoration(border: Border.all(color: Colors.grey)),
+                        child: SingleChildScrollView(
+                          child: Text(_contents.content),
+                        ),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: _clause3IsChecked,
+                          onChanged: (bool value) {
+                            setState(() {
+                              _clause3IsChecked = value;
+                            });
+                          },
+                        ),
+                        Text('이용약관3(선택)'),
+                        IconButton(
+                            icon: _clause3Visible
+                                ? Icon(Icons.arrow_drop_up)
+                                : Icon(Icons.arrow_drop_down),
+                            onPressed: () {
+                              setState(() {
+                                _clause3Visible = !_clause3Visible;
+                              });
+                            }),
+                      ],
+                    ),
+                    Visibility(
+                      visible: _clause3Visible,
+                      child: Container(
+                        width: 300,
+                        height: 100,
+                        decoration:
+                        BoxDecoration(border: Border.all(color: Colors.grey)),
+                        child: SingleChildScrollView(
+                          child: Text(_contents.content),
+                        ),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: _clause4IsChecked,
+                          onChanged: (bool value) {
+                            setState(() {
+                              _clause4IsChecked = value;
+                            });
+                          },
+                        ),
+                        Text('이용약관4(선택)'),
+                        IconButton(
+                            icon: _clause4Visible
+                                ? Icon(Icons.arrow_drop_up)
+                                : Icon(Icons.arrow_drop_down),
+                            onPressed: () {
+                              setState(() {
+                                _clause4Visible = !_clause4Visible;
+                              });
+                            }),
+                      ],
+                    ),
+                    Visibility(
+                      visible: _clause4Visible,
+                      child: Container(
+                        width: 300,
+                        height: 100,
+                        decoration:
+                        BoxDecoration(border: Border.all(color: Colors.grey)),
+                        child: SingleChildScrollView(
+                          child: Text(_contents.content),
+                        ),
+                      ),
+                    ),
+                    Flexible(flex: 1,child: Container()),
+                    ButtonTheme(
+                      minWidth: double.infinity,
+                      child: Builder(
+                        builder: (context) {
+                          return RaisedButton(
+                            color: Colors.green,
+                            onPressed: () {
+                              if (_clause1IsChecked && _clause2IsChecked) {
+                                _pageController.jumpToPage(1);
+                              } else {
+                                Scaffold.of(context).showSnackBar(
+                                  new SnackBar(
+                                    backgroundColor: Colors.red,
+                                    duration: Duration(seconds: 1),
+                                    content: new Text('이용약관에 동의해 주십시오.'),
+                                  ),
+                                );
+                              }
+                            },
+                            child: Text(
+                              '다음',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ],
