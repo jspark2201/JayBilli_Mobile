@@ -115,9 +115,9 @@ class _SignInPageState extends State<SignInPage> {
                     children: [
                       TextSpan(
                           text: '계정이 없으십니까? ',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
                       TextSpan(
-                          text: '가입하기', style: TextStyle(color: Colors.blue, fontSize: 16.0),
+                          text: '가입하기', style: TextStyle(color: Colors.blue, fontSize: 18.0),
                           recognizer: TapGestureRecognizer()..onTap = () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPageActivity()));
                           }),

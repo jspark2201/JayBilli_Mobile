@@ -10,14 +10,23 @@ class SignUpPageActivity extends StatefulWidget {
 }
 
 class _SignUpPageActivityState extends State<SignUpPageActivity> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _idController = TextEditingController(text: '');
   TextEditingController _pwController = TextEditingController(text: '');
   TextEditingController _confirmPwController = TextEditingController(text: '');
+  TextEditingController _userNameController = TextEditingController(text: '');
+  TextEditingController _genderController = TextEditingController(text: '');
+  TextEditingController _birthdayController = TextEditingController(text: '');
   TextEditingController _emailController = TextEditingController(text: '');
-  TextEditingController _phoneNumberController =
-      TextEditingController(text: '');
-  TextEditingController _SmsCodeController = TextEditingController(text: '');
+  TextEditingController _phoneNumberController = TextEditingController(text: '');
+  final GlobalKey<FormFieldState> _idFormKey = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _pwFormKey = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _confirmPwFormKey =
+      GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _userNameFormKey = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _genderFormKey = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _birthdayFormKey = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _emailFormKey = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _phoneNumberFormKey = GlobalKey<FormFieldState>();
   bool _clause1IsChecked = false;
   bool _clause2IsChecked = false;
   bool _clause3IsChecked = false;
@@ -26,12 +35,24 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
   bool _clause2Visible = false;
   bool _clause3Visible = false;
   bool _clause4Visible = false;
-
+  bool _isSubmitButtonEnabled = false;
+  bool _isSubmitButtonEnabled2 = false;
   Contents _contents = Contents();
-
   Size _size;
-
   final _pageController = PageController(initialPage: 0);
+
+  @override
+  void dispose() {
+    _idController.dispose();
+    _pwController.dispose();
+    _confirmPwController.dispose();
+    _userNameController.dispose();
+    _genderController.dispose();
+    _birthdayController.dispose();
+    _phoneNumberController.dispose();
+    _emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +76,10 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
                   controller: _pageController,
                   physics: NeverScrollableScrollPhysics(),
                   children: [
-                    //test()
                     signUpForm1(),
                     signUpForm2(),
-                    //signUpForm3(),
+                    signUpForm3(),
+                    signUpForm4(),
                   ],
                 ),
               ),
@@ -67,48 +88,13 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
         });
   }
 
-  Widget test() {
-    return Column(
-      children: [
-        Container(
-          color: Colors.yellow,
-          height: 50,
-        ),
-        Flexible(
-          flex: 1,
-          child: CustomScrollView(
-            slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      color: Colors.green,
-                      height: 1000,
-                    ),
-                    Container(
-                      color: Colors.blue,
-                      height: 50,
-                    ),
-                    Container(
-                      color: Colors.red,
-                      height: 50,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget signUpForm1() {
     return Column(
       children: [
-        _indicator(1),
+        Padding(
+          padding: const EdgeInsets.only(right: 10.0),
+          child: _indicator(1),
+        ),
         Container(
           height: 30,
         ),
@@ -122,7 +108,7 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(bottom:8.0),
+                      padding: const EdgeInsets.only(bottom: 8.0),
                       child: Text(
                         '약관동의',
                         style: TextStyle(fontWeight: FontWeight.bold),
@@ -159,8 +145,8 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
                       child: Container(
                         width: 300,
                         height: 300,
-                        decoration:
-                        BoxDecoration(border: Border.all(color: Colors.grey)),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey)),
                         child: SingleChildScrollView(
                           child: Text(_contents.content),
                         ),
@@ -193,8 +179,8 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
                       child: Container(
                         width: 300,
                         height: 100,
-                        decoration:
-                        BoxDecoration(border: Border.all(color: Colors.grey)),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey)),
                         child: SingleChildScrollView(
                           child: Text(_contents.content),
                         ),
@@ -227,8 +213,8 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
                       child: Container(
                         width: 300,
                         height: 100,
-                        decoration:
-                        BoxDecoration(border: Border.all(color: Colors.grey)),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey)),
                         child: SingleChildScrollView(
                           child: Text(_contents.content),
                         ),
@@ -261,14 +247,14 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
                       child: Container(
                         width: 300,
                         height: 100,
-                        decoration:
-                        BoxDecoration(border: Border.all(color: Colors.grey)),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey)),
                         child: SingleChildScrollView(
                           child: Text(_contents.content),
                         ),
                       ),
                     ),
-                    Flexible(flex: 1,child: Container()),
+                    Flexible(flex: 1, child: Container()),
                     ButtonTheme(
                       minWidth: double.infinity,
                       child: Builder(
@@ -307,45 +293,364 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
   }
 
   Widget signUpForm2() {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _indicator(2),
-          RaisedButton(
-            color: Colors.green,
-            onPressed: () {
-              _pageController.jumpToPage(2);
-            },
-            child: Text(
-              '다음',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 10.0),
+          child: _indicator(2),
+        ),
+        Container(
+          height: 30,
+        ),
+        Flexible(
+            flex: 1,
+            child: CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Text(
+                          '아이디 & 비밀번호 생성',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Container(
+                          color: Colors.grey[300],
+                          height: 1,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: Text(
+                          '아이디',
+                          style: TextStyle(
+                              fontSize: 14.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _idController,
+                        key: _idFormKey,
+                        style: TextStyle(fontSize: 14),
+                        decoration: getTextFieldDecor('아이디'),
+                        onChanged: (String value) {
+                          _idFormKey.currentState.validate();
+                          _isSubmitButtonEnabled = _isFormValid();
+                        },
+                        validator: (String value) {
+                          if (value.isEmpty) {
+                            return '아이디를 입력해주세요.';
+                          } else if (value.contains(' ')) {
+                            return '올바른 형식으로 입력해주세요.(공백 제외)';
+                          }
+                          return null;
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Text(
+                          '비밀번호',
+                          style: TextStyle(
+                              fontSize: 14.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _pwController,
+                        key: _pwFormKey,
+                        obscureText: true,
+                        style: TextStyle(fontSize: 14),
+                        decoration: getTextFieldDecor('비밀번호'),
+                        onChanged: (String value) {
+                          _pwFormKey.currentState.validate();
+                          _isSubmitButtonEnabled = _isFormValid();
+                        },
+                        validator: (String value) {
+                          if (value.isEmpty ||
+                              value.contains(' ') ||
+                              value.length < 6) {
+                            return '올바른 형식의 비밀번호를 입력해 주세요.\n(공백 제외, 6글자 이상)';
+                          }
+                          return null;
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Text(
+                          '비밀번호 확인',
+                          style: TextStyle(
+                              fontSize: 14.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _confirmPwController,
+                        key: _confirmPwFormKey,
+                        obscureText: true,
+                        style: TextStyle(fontSize: 14),
+                        decoration: getTextFieldDecor('비밀번호 확인'),
+                        onChanged: (String value) {
+                          _confirmPwFormKey.currentState.validate();
+                          _isSubmitButtonEnabled = _isFormValid();
+                        },
+                        validator: (String value) {
+                          if (_pwController.text != _confirmPwController.text) {
+                            return '동일한 비밀번호를 입력해 주세요.';
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      Flexible(flex: 1, child: Container()),
+                      ButtonTheme(
+                        minWidth: double.infinity,
+                        child: Builder(
+                          builder: (context) {
+                            return RaisedButton(
+                              color: Colors.green,
+                              onPressed: () {
+                                FocusScope.of(context).requestFocus(
+                                    FocusNode()); //keyboard focus dismiss
+                                // if (_isSubmitButtonEnabled) {
+                                //   _pageController.jumpToPage(2);
+                                // }
+                                _pageController.jumpToPage(2);
+                              },
+                              child: Text(
+                                '다음',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            )),
+      ],
     );
   }
 
   Widget signUpForm3() {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _indicator(3),
-          RaisedButton(
-            color: Colors.green,
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text(
-              '완료',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 10.0),
+          child: _indicator(3),
+        ),
+        Container(
+          height: 30,
+        ),
+        Flexible(
+            flex: 1,
+            child: CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Text(
+                          '개인정보 입력',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Container(
+                          color: Colors.grey[300],
+                          height: 1,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: Text(
+                          '이름',
+                          style: TextStyle(
+                              fontSize: 14.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _userNameController,
+                        key: _userNameFormKey,
+                        style: TextStyle(fontSize: 14),
+                        decoration: getTextFieldDecor('이름'),
+                        onChanged: (String value) {
+                          _userNameFormKey.currentState.validate();
+                          _isSubmitButtonEnabled2 = _isFormValid2();
+                        },
+                        validator: (String value) {
+                          if (value.isEmpty) {
+                            return '이름을 입력해 주세요.';
+                          }
+                          return null;
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Text(
+                          '성별',
+                          style: TextStyle(
+                              fontSize: 14.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Container(height: 50, width: double.infinity, color: Colors.yellow,),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Text(
+                          '생년월일',
+                          style: TextStyle(
+                              fontSize: 14.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(height: 50, width:150, color: Colors.yellow,),
+                          Container(height: 50, width:100, color: Colors.yellow,),
+                          Container(height: 50, width:100, color: Colors.yellow,),
+                        ],),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Text(
+                          '이메일',
+                          style: TextStyle(
+                              fontSize: 14.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _emailController,
+                        key: _emailFormKey,
+                        keyboardType: TextInputType.emailAddress,
+                        style: TextStyle(fontSize: 14),
+                        decoration: getTextFieldDecor('이메일'),
+                        onChanged: (String value) {
+                          _emailFormKey.currentState.validate();
+                          _isSubmitButtonEnabled2 = _isFormValid2();
+                        },
+                        validator: (String value) {
+                          if (!isValidEmail()) {
+                            return '올바른 형식의 이메일을 입력해 주세요.';
+                          }
+                          return null;
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Text(
+                          '전화번호',
+                          style: TextStyle(
+                              fontSize: 14.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Container(height: 50, width: double.infinity, color: Colors.yellow,),
+                      Flexible(flex: 1, child: Container()),
+                      ButtonTheme(
+                        minWidth: double.infinity,
+                        child: Builder(
+                          builder: (context) {
+                            return RaisedButton(
+                              color: Colors.green,
+                              onPressed: () {
+                                FocusScope.of(context).requestFocus(
+                                    FocusNode()); //keyboard focus dismiss
+                                // if (_isSubmitButtonEnabled2) {
+                                //   _pageController.jumpToPage(3);
+                                // }
+                                _pageController.jumpToPage(3);
+                              },
+                              child: Text(
+                                '다음',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            )),
+      ],
     );
+  }
+
+  Widget signUpForm4() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 10.0),
+          child: _indicator(4),
+        ),
+        Flexible(flex: 2, child: Container()),
+        Text(
+          '환영합니다.',
+          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+        ),
+        Flexible(flex: 1, child: Container()),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'jspark2201',
+              style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold),
+            ),
+            Text(
+              '님',
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        Flexible(flex: 1, child: Container()),
+        Text(
+          '제이빌리 회원가입이 완료되었습니다.',
+          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+        ),
+        Flexible(flex: 6, child: Container()),
+        ButtonTheme(
+          minWidth: double.infinity,
+          child: Builder(
+            builder: (context) {
+              return RaisedButton(
+                color: Colors.green,
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  '확인',
+                  style: TextStyle(color: Colors.white),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  bool _isFormValid() {
+    return _idFormKey.currentState.isValid &&
+        _pwFormKey.currentState.isValid &&
+        _confirmPwFormKey.currentState.isValid;
+  }
+
+  bool _isFormValid2() {
+    return _userNameFormKey.currentState.isValid &&
+        _emailFormKey.currentState.isValid;
   }
 
   Widget _indicator(int index) {
@@ -408,6 +713,31 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
           child: Text(
             '3',
             style: TextStyle(color: index == 3 ? Colors.white : Colors.black),
+          ),
+        ),
+        SizedBox(
+          width: 4,
+        ),
+        CircleAvatar(
+          radius: 2,
+          backgroundColor: Colors.grey[300],
+        ),
+        SizedBox(
+          width: 4,
+        ),
+        CircleAvatar(
+          radius: 2,
+          backgroundColor: Colors.grey[300],
+        ),
+        SizedBox(
+          width: 4,
+        ),
+        CircleAvatar(
+          radius: index == 4 ? 15.0 : 10.0,
+          backgroundColor: index == 4 ? Colors.blue : Colors.grey[300],
+          child: Text(
+            '4',
+            style: TextStyle(color: index == 4 ? Colors.white : Colors.black),
           ),
         )
       ],
@@ -642,7 +972,7 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
             color: Colors.grey[300],
             width: 1,
           ),
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
