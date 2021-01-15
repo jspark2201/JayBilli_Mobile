@@ -1,8 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:jaybilli_mobile/constant/contants.dart';
+import 'package:intl/intl.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+
+enum Gender {MAN, WOMEN, OTHERS}
 
 class SignUpPageActivity extends StatefulWidget {
   @override
@@ -23,8 +28,6 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
   final GlobalKey<FormFieldState> _confirmPwFormKey =
       GlobalKey<FormFieldState>();
   final GlobalKey<FormFieldState> _userNameFormKey = GlobalKey<FormFieldState>();
-  final GlobalKey<FormFieldState> _genderFormKey = GlobalKey<FormFieldState>();
-  final GlobalKey<FormFieldState> _birthdayFormKey = GlobalKey<FormFieldState>();
   final GlobalKey<FormFieldState> _emailFormKey = GlobalKey<FormFieldState>();
   final GlobalKey<FormFieldState> _phoneNumberFormKey = GlobalKey<FormFieldState>();
   bool _clause1IsChecked = false;
@@ -38,7 +41,14 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
   bool _isSubmitButtonEnabled = false;
   bool _isSubmitButtonEnabled2 = false;
   Contents _contents = Contents();
+  Gender _gender = Gender.OTHERS;
   Size _size;
+  DateTime _date = DateTime.now();
+  int _nowYear = int.parse(DateFormat('yyyy').format(DateTime.now()));
+  int _nowMonth = int.parse(DateFormat('MM').format(DateTime.now()));
+  int _nowDay = int.parse(DateFormat('dd').format(DateTime.now()));
+  var _phoneFormatter = new MaskTextInputFormatter(mask: '###-####-####', filter: {"#": RegExp(r'[0-9]')},);
+  Pattern _phonePattern = r'\d{3}[-]\d{4}[-]\d{4}';
   final _pageController = PageController(initialPage: 0);
 
   @override
@@ -503,7 +513,23 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
                               fontSize: 14.0, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Container(height: 50, width: double.infinity, color: Colors.yellow,),
+                      Row(
+                        children: [
+                          Radio(value: Gender.MAN, groupValue: _gender, onChanged: (value){
+                            setState(() {
+                              _gender = value;
+                            });
+                          }),
+                          Text('남자'),
+                          SizedBox(width: 30,),
+                          Radio(value: Gender.WOMEN, groupValue: _gender, onChanged: (value){
+                            setState(() {
+                              _gender = value;
+                            });
+                          }),
+                          Text('여자'),
+                        ],
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
                         child: Text(
@@ -515,9 +541,42 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(height: 50, width:150, color: Colors.yellow,),
-                          Container(height: 50, width:100, color: Colors.yellow,),
-                          Container(height: 50, width:100, color: Colors.yellow,),
+                          Flexible(
+                            flex:1,
+                            child: Container(height: 50, width: double.infinity,
+                            alignment: Alignment(-1.0, 0),
+                            decoration: BoxDecoration(
+                              border: Border.all(color:Colors.grey[300]),
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Colors.grey[100]
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left:12.0),
+                              child: Text(DateFormat('yyyy-MM-dd').format(_date)),
+                            ),),
+                          ),
+                          SizedBox(width: 10,),
+                          ButtonTheme(
+                            buttonColor: Colors.blue,
+                            child: RaisedButton(
+                                child: Text('설정', style: TextStyle(color: Colors.white),),
+                                onPressed: (){
+                                  DatePicker.showDatePicker(context,
+                                    showTitleActions: true,
+                                    minTime: DateTime(1900, 1, 1),
+                                    maxTime: DateTime(_nowYear, _nowMonth, _nowDay),
+                                    onChanged: (date) {
+                                      _date = date;
+                                    },
+                                    onConfirm: (date) {
+                                      setState(() {
+                                        _date = date;
+                                      });
+                                    },
+                                    locale: LocaleType.ko
+                                  );
+                                }),
+                          ),
                         ],),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -552,8 +611,31 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
                               fontSize: 14.0, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Container(height: 50, width: double.infinity, color: Colors.yellow,),
+                      TextFormField(
+                        controller: _phoneNumberController,
+                        key: _phoneNumberFormKey,
+                        keyboardType: TextInputType.phone,
+                        style: TextStyle(fontSize: 14),
+                        inputFormatters: [_phoneFormatter],
+                        decoration: getTextFieldDecor('전화번호'),
+                        onChanged: (String value) {
+
+                        },
+                        validator: (String value) {
+                          if(value.isEmpty) {
+                            print('전화번호를 입력해 주세요.');
+                            return '전화번호를 입력해 주세요.';
+                          } else if(!RegExp(_phonePattern).hasMatch(value)) {
+                            print('올바른 형식이 아닙니다.');
+                            return '올바른 형식이 아닙니다.';
+                          }
+                          print('올바른 형식입니다.');
+                          return null;
+                        },
+                      ),
                       Flexible(flex: 1, child: Container()),
+                      SizedBox(height: 50,),
+                      Text('- 등록한 개인정보는 아이디 찾기 및 비밀번호 찾기 등에 이용됩니다.', style: TextStyle(color:Colors.grey[500], fontSize: 12.0),),
                       ButtonTheme(
                         minWidth: double.infinity,
                         child: Builder(
@@ -650,7 +732,8 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
 
   bool _isFormValid2() {
     return _userNameFormKey.currentState.isValid &&
-        _emailFormKey.currentState.isValid;
+        _emailFormKey.currentState.isValid &&
+        _phoneNumberFormKey.currentState.isValid;
   }
 
   Widget _indicator(int index) {
