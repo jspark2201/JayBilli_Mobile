@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:jaybilli_mobile/data/provider/my_user_data.dart';
 import 'package:jaybilli_mobile/root_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider<MyUserData>(
+      create: (context) => MyUserData(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

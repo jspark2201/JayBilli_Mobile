@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:jaybilli_mobile/constant/contants.dart';
 import 'package:intl/intl.dart';
+import 'package:jaybilli_mobile/firebase/firestore_provider.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 enum Gender {MAN, WOMEN, OTHERS}
@@ -648,7 +649,7 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
                                 // if (_isSubmitButtonEnabled2) {
                                 //   _pageController.jumpToPage(3);
                                 // }
-                                _pageController.jumpToPage(3);
+                                _register;
                               },
                               child: Text(
                                 '다음',
@@ -1005,8 +1006,8 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
       final AuthResult _result = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: _emailController.text, password: _pwController.text);
-      // Navigator.pushReplacement(context,
-      //     MaterialPageRoute(builder: (context) => SignUpCompletePage()));
+      _pageController.jumpToPage(3);
+
     } catch (error) {
       switch (error.code) {
         case "ERROR_INVALID_EMAIL":

@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:jaybilli_mobile/data/provider/my_user_data.dart';
+import 'package:jaybilli_mobile/firebase/firestore_provider.dart';
 import 'package:jaybilli_mobile/sign_in_page.dart';
-import 'package:jaybilli_mobile/sign_in_page.dart';
+import 'package:provider/provider.dart';
 
 class MyAccountPage extends StatefulWidget {
   @override
@@ -29,6 +31,11 @@ class _AccountPageState extends State<MyAccountPage> {
             return Container();
           } else {
             if (snapshot.hasData) {
+              firestoreProvider.attemptCreateUser(userKey: snapshot.data.uid, email: snapshot.data.email);
+              var myUserData = Provider.of<MyUserData>(context);
+              firestoreProvider.connectMyUserData(snapshot.data.uid).listen((user) {
+                myUserData.setUserData(user);
+              });
               return Scaffold(
                 endDrawer: Drawer(
                   child: ListView(
@@ -76,16 +83,24 @@ class _AccountPageState extends State<MyAccountPage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      //snapshot.data.email,
-                                      '박준성',
-                                      style: TextStyle(color: Colors.white),
+                                    Consumer<MyUserData>(
+                                      builder: (context, myUserData, child){
+                                        return Text(
+                                          myUserData.data.userEmail,
+                                          style: TextStyle(color: Colors.white),
+                                        );
+                                      },
                                     ),
                                     SizedBox(
                                       height: 10,
                                     ),
-                                    Text('avg:0.333',
-                                        style: TextStyle(color: Colors.white)),
+                                    Consumer<MyUserData>(
+                                      builder: (context, myUserData, child){
+                                        return Text(
+                                            myUserData.data.userAvg,
+                                            style: TextStyle(color: Colors.white));
+                                      },
+                                    ),
                                   ],
                                 )
                               ],
@@ -97,17 +112,24 @@ class _AccountPageState extends State<MyAccountPage> {
                       ListTile(
                         leading: Icon(Icons.account_circle),
                         title: Text('개인정보 수정'),
-                        onTap: () {},
+                        onTap: () {
+                          // firestoreProvider.sendData().then((_){
+                          //   print('데이터 전송 성공!');
+                          // });
+                        },
                       ),
                       ListTile(
                         leading: Icon(Icons.settings),
                         title: Text('설정'),
-                        onTap: () {},
+                        onTap: () {
+                          // firestoreProvider.getData();
+                        },
                       ),
                       ListTile(
                         leading: Icon(Icons.logout),
                         title: Text('로그아웃'),
                         onTap: () {
+                          Provider.of<MyUserData>(context, listen: false).clearUser();
                           FirebaseAuth.instance.signOut();
                         },
                       )

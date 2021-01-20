@@ -153,12 +153,14 @@ class _SignInPageState extends State<SignInPage> {
         filled: true);
   }
 
+
+
   get _login async {
     String errorMessage;
     try {
       final AuthResult result = await FirebaseAuth.instance
           .signInWithEmailAndPassword(
-              email: _idController.text + '@gmail.com',
+              email: _idController.text,
               password: _pwController.text);
     } catch (error) {
       switch (error.code) {
