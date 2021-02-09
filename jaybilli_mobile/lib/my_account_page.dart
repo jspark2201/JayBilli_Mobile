@@ -143,13 +143,15 @@ class _AccountPageState extends State<MyAccountPage> {
                 ),
                 body: SafeArea(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           FlatButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                print('경기기록');
+                              },
                               child: Column(
                                 children: [
                                   Image.asset(
@@ -161,36 +163,9 @@ class _AccountPageState extends State<MyAccountPage> {
                                 ],
                               )),
                           FlatButton(
-                              onPressed: () {},
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    'images/club.png',
-                                    width: _iconSize,
-                                    height: _iconSize,
-                                  ),
-                                  Text('동호회'),
-                                ],
-                              )),
-                          FlatButton(
-                              onPressed: () {},
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    'images/friends.png',
-                                    width: _iconSize,
-                                    height: _iconSize,
-                                  ),
-                                  Text('내 친구'),
-                                ],
-                              )),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          FlatButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                print('AI 분석실');
+                              },
                               child: Column(
                                 children: [
                                   Image.asset(
@@ -201,8 +176,15 @@ class _AccountPageState extends State<MyAccountPage> {
                                   Text('AI 분석실'),
                                 ],
                               )),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
                           FlatButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                print('AI 교실');
+                              },
                               child: Column(
                                 children: [
                                   Image.asset(
@@ -214,48 +196,9 @@ class _AccountPageState extends State<MyAccountPage> {
                                 ],
                               )),
                           FlatButton(
-                              onPressed: () {},
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    'images/billiards.png',
-                                    width: _iconSize,
-                                    height: _iconSize,
-                                  ),
-                                  Text('내 클럽'),
-                                ],
-                              )),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          FlatButton(
-                              onPressed: () {},
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    'images/trophy.png',
-                                    width: _iconSize,
-                                    height: _iconSize,
-                                  ),
-                                  Text('랭킹'),
-                                ],
-                              )),
-                          FlatButton(
-                              onPressed: () {},
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    'images/cart.png',
-                                    width: _iconSize,
-                                    height: _iconSize,
-                                  ),
-                                  Text('제이 마켓'),
-                                ],
-                              )),
-                          FlatButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                print('고객센터');
+                              },
                               child: Column(
                                 children: [
                                   Image.asset(
