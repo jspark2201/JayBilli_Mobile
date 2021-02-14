@@ -89,11 +89,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Container(
-                          color: Colors.grey,
-                          width: double.infinity,
-                          height: _size.height / 4,
-                        ),
+                        child: _favoriteClub(),
                       ),
                       SizedBox(
                         height: 10,
@@ -158,4 +154,21 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
+
+  Widget _favoriteClub() {
+    return Container(
+      color: Colors.grey[300],
+      width: double.infinity,
+      height: _size.height / 4,
+      child: IconButton(
+        icon: Icon(Icons.add),
+        iconSize: 30,
+        onPressed: () {
+          print('자주가는 클럽 눌림');
+        },
+      ),
+    );
+  }
+
+
 }
