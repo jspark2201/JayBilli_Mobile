@@ -73,6 +73,7 @@ class _SignUpPageActivityState extends State<SignUpPageActivity> {
         builder: (context, snapshot) {
           return Scaffold(
             appBar: AppBar(
+              backgroundColor: Color(mainColor),
               title: Center(child: Text('회원가입')),
               actions: [
                 SizedBox(

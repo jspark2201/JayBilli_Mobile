@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:jaybilli_mobile/constant/contants.dart';
 import 'package:jaybilli_mobile/data/provider/my_user_data.dart';
 import 'package:jaybilli_mobile/firebase/firestore_provider.dart';
 import 'package:jaybilli_mobile/sign_in_page.dart';
@@ -22,7 +23,6 @@ class _AccountPageState extends State<MyAccountPage> {
   @override
   Widget build(BuildContext context) {
     double _iconSize = 42.0;
-
     return StreamBuilder<FirebaseUser>(
         stream: FirebaseAuth.instance.onAuthStateChanged,
         builder: (context, snapshot) {
@@ -41,7 +41,7 @@ class _AccountPageState extends State<MyAccountPage> {
                   child: ListView(
                     children: [
                       DrawerHeader(
-                        decoration: BoxDecoration(color: Colors.lightBlue),
+                        decoration: BoxDecoration(color: Color(mainColor)),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,7 +137,7 @@ class _AccountPageState extends State<MyAccountPage> {
                   ),
                 ),
                 appBar: AppBar(
-                  backgroundColor: Color(0xff0287FA),
+                  backgroundColor: Color(mainColor),
                   leading: SizedBox(),
                   title: Center(child: Text('마이 페이지')),
                 ),
