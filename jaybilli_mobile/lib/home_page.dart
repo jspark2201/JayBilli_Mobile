@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:jaybilli_mobile/models/channel_model.dart';
+import 'package:jaybilli_mobile/services/api_service.dart';
 
 import 'constant/contants.dart';
 
@@ -40,6 +42,7 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
     _noticeController.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -103,11 +106,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Container(
-                          color: Colors.grey,
-                          width: double.infinity,
-                          height: _size.height / 3,
-                        ),
+                        child: _recommendedVideo(),
                       ),
                       SizedBox(
                         height: 10,
@@ -170,5 +169,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _recommendedVideo() {
+    return Container(
+      color: Colors.yellow,
+      width: double.infinity,
+      height: _size.height / 3,
+    );
+  }
 
 }
