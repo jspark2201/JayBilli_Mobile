@@ -1,9 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:jaybilli_mobile/models/channel_model.dart';
-import 'package:jaybilli_mobile/services/api_service.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'constant/contants.dart';
 
 class HomePage extends StatefulWidget {
@@ -47,6 +44,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     _size = MediaQuery.of(context).size;
+    const String _url = 'https://www.youtube.com/watch?v=bbqqmQsQOxU';
+
     return Scaffold(
       body: Column(
         children: [
@@ -106,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: _recommendedVideo(),
+                        child: _recommendedVideo(_url),
                       ),
                       SizedBox(
                         height: 10,
@@ -169,11 +168,54 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _recommendedVideo() {
-    return Container(
-      color: Colors.yellow,
-      width: double.infinity,
-      height: _size.height / 3,
+  Widget _recommendedVideo(String url) {
+    return GestureDetector(
+      onTap: () {
+        print('asdsd');
+        launchInBrowser(url);
+      },
+      child: Container(
+        color: Colors.grey[300],
+        width: double.infinity,
+        padding: EdgeInsets.all(10.0),
+        height: _size.height / 3,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.network('https://img.youtube.com/vi/bbqqmQsQOxU/0.jpg'),  //'https://img.youtube.com/vi/youtube video id/0.jpg'
+            Container(width: 70, height: 70, child: Icon(Icons.play_arrow, size: 70, color: Colors.white,),)
+          ],
+        ),
+      ),
+    );
+  }
+
+  void launchInBrowser(String url) async {
+    if(await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: false,
+      );
+    } else {
+      showErrorDialog('브라우저에서 $url 열기 실패');
+    }
+  }
+  
+  void showErrorDialog(String errorMsg) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('실패'),
+          content: Text(errorMsg),
+          actions: [
+            FlatButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('다시 시도하세요.'))
+          ],
+        );
+      }
     );
   }
 
