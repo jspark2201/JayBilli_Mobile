@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'constant/contants.dart';
@@ -13,9 +14,19 @@ class _HomePageState extends State<HomePage> {
   int _currentNoticeIndex = 0;
   PageController _noticeController = PageController(initialPage: 0);
   List<Widget> _noticeList = [
-    RichText(overflow: TextOverflow.ellipsis,text: TextSpan(style: TextStyle(color: Colors.black),text:'공지사항1 입니다.')),
-    RichText(overflow: TextOverflow.ellipsis,text: TextSpan(style: TextStyle(color: Colors.black),text:'공지사항2 입니다.')),
-    RichText(overflow: TextOverflow.ellipsis,text: TextSpan(style: TextStyle(color: Colors.black),text:'공지사항3 입니다. 최대 세 개의 공지사항을 보여줍니다.')),
+    RichText(
+        overflow: TextOverflow.ellipsis,
+        text: TextSpan(
+            style: TextStyle(color: Colors.black), text: '공지사항1 입니다.')),
+    RichText(
+        overflow: TextOverflow.ellipsis,
+        text: TextSpan(
+            style: TextStyle(color: Colors.black), text: '공지사항2 입니다.')),
+    RichText(
+        overflow: TextOverflow.ellipsis,
+        text: TextSpan(
+            style: TextStyle(color: Colors.black),
+            text: '공지사항3 입니다. 최대 세 개의 공지사항을 보여줍니다.')),
   ];
 
   @override
@@ -27,7 +38,7 @@ class _HomePageState extends State<HomePage> {
       } else {
         _currentNoticeIndex = 0;
       }
-      if(_noticeController.hasClients) {
+      if (_noticeController.hasClients) {
         _noticeController.animateToPage(_currentNoticeIndex,
             duration: Duration(milliseconds: 350), curve: Curves.easeIn);
       }
@@ -39,7 +50,6 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
     _noticeController.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,11 +84,7 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        color: Colors.grey,
-                        width: double.infinity,
-                        height: _size.height / 3,
-                      ),
+                      _advertisement(),
                       SizedBox(
                         height: 10,
                       ),
@@ -153,6 +159,41 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _advertisement() {
+    return Container(
+      color: Colors.grey,
+      width: double.infinity,
+      height: _size.height / 3,
+      child: Carousel(
+        dotSize: 4.0,
+        dotSpacing: 15.0,
+        indicatorBgPadding: 5.0,
+        dotBgColor: Colors.transparent,
+        dotVerticalPadding: 5.0,
+        dotPosition: DotPosition.bottomRight,
+        animationDuration: Duration(milliseconds: 500),
+        autoplayDuration: Duration(seconds: 5),
+        images: [
+          InkWell(
+              onTap: () {
+                print('1 Item Click');
+              },
+              child: Image.asset('images/advertisement1.jpg', fit: BoxFit.cover,)),
+          InkWell(
+              onTap: () {
+                print('2 Item Click');
+              },
+              child: Image.asset('images/advertisement2.jpg', fit: BoxFit.cover,)),
+          InkWell(
+              onTap: () {
+                print('3 Item Click');
+              },
+              child: Image.asset('images/advertisement3.jpg', fit: BoxFit.cover,)),
+        ],
+      ),
+    );
+  }
+
   Widget _favoriteClub() {
     return Container(
       color: Colors.grey[300],
@@ -182,8 +223,17 @@ class _HomePageState extends State<HomePage> {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            Image.network('https://img.youtube.com/vi/bbqqmQsQOxU/0.jpg'),  //'https://img.youtube.com/vi/youtube video id/0.jpg'
-            Container(width: 70, height: 70, child: Icon(Icons.play_arrow, size: 70, color: Colors.white,),)
+            Image.network('https://img.youtube.com/vi/bbqqmQsQOxU/0.jpg'),
+            //'https://img.youtube.com/vi/youtube video id/0.jpg'
+            Container(
+              width: 70,
+              height: 70,
+              child: Icon(
+                Icons.play_arrow,
+                size: 70,
+                color: Colors.white,
+              ),
+            )
           ],
         ),
       ),
@@ -191,7 +241,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void launchInBrowser(String url) async {
-    if(await canLaunch(url)) {
+    if (await canLaunch(url)) {
       await launch(
         url,
         forceSafariVC: false,
@@ -201,22 +251,20 @@ class _HomePageState extends State<HomePage> {
       showErrorDialog('브라우저에서 $url 열기 실패');
     }
   }
-  
+
   void showErrorDialog(String errorMsg) {
     showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('실패'),
-          content: Text(errorMsg),
-          actions: [
-            FlatButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: Text('다시 시도하세요.'))
-          ],
-        );
-      }
-    );
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('실패'),
+            content: Text(errorMsg),
+            actions: [
+              FlatButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('다시 시도하세요.'))
+            ],
+          );
+        });
   }
-
 }
