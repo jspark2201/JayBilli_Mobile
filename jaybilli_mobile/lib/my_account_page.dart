@@ -126,6 +126,13 @@ class _AccountPageState extends State<MyAccountPage> {
                         },
                       ),
                       ListTile(
+                        leading: Icon(Icons.message),
+                        title: Text('고객센터'),
+                        onTap: () {
+                          // firestoreProvider.getData();
+                        },
+                      ),
+                      ListTile(
                         leading: Icon(Icons.logout),
                         title: Text('로그아웃'),
                         onTap: () {
@@ -197,16 +204,16 @@ class _AccountPageState extends State<MyAccountPage> {
                               )),
                           FlatButton(
                               onPressed: () {
-                                print('고객센터');
+                                print('자주가는 클럽');
                               },
                               child: Column(
                                 children: [
                                   Image.asset(
-                                    'images/service.png',
+                                    'images/billiard_ball.png',
                                     width: _iconSize,
                                     height: _iconSize,
                                   ),
-                                  Text('고객센터'),
+                                  Text('자주가는 클럽'),
                                 ],
                               )),
                         ],

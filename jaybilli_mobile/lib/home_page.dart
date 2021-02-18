@@ -212,7 +212,6 @@ class _HomePageState extends State<HomePage> {
   Widget _recommendedVideo(String url) {
     return GestureDetector(
       onTap: () {
-        print('asdsd');
         launchInBrowser(url);
       },
       child: Container(
