@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
+import 'package:jaybilli_mobile/my_favorite_club.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'constant/contants.dart';
 
@@ -13,6 +14,8 @@ class _HomePageState extends State<HomePage> {
   Size _size;
   int _currentNoticeIndex = 0;
   PageController _noticeController = PageController(initialPage: 0);
+  bool isRegisteredClub = true;
+
   List<Widget> _noticeList = [
     RichText(
         overflow: TextOverflow.ellipsis,
@@ -178,33 +181,84 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 print('1 Item Click');
               },
-              child: Image.asset('images/advertisement1.jpg', fit: BoxFit.cover,)),
+              child: Image.asset(
+                'images/advertisement1.jpg',
+                fit: BoxFit.cover,
+              )),
           InkWell(
               onTap: () {
                 print('2 Item Click');
               },
-              child: Image.asset('images/advertisement2.jpg', fit: BoxFit.cover,)),
+              child: Image.asset(
+                'images/advertisement2.jpg',
+                fit: BoxFit.cover,
+              )),
           InkWell(
               onTap: () {
                 print('3 Item Click');
               },
-              child: Image.asset('images/advertisement3.jpg', fit: BoxFit.cover,)),
+              child: Image.asset(
+                'images/advertisement3.jpg',
+                fit: BoxFit.cover,
+              )),
         ],
       ),
     );
   }
 
   Widget _favoriteClub() {
-    return Container(
-      color: Colors.grey[300],
-      width: double.infinity,
-      height: _size.height / 4,
-      child: IconButton(
-        icon: Icon(Icons.add),
-        iconSize: 30,
-        onPressed: () {
-          print('자주가는 클럽 눌림');
-        },
+    return InkWell(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MyFavoriteClub()));
+      },
+      child: Container(
+        width: double.infinity,
+        height: _size.height / 7,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0),
+            color: Colors.white,
+            boxShadow: [
+              //to make elevation
+              BoxShadow(
+                color: Colors.black45,
+                offset: Offset(2,2),
+                blurRadius: 4
+              )
+            ]
+        ),
+        child: isRegisteredClub
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text('제이빌리', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),),
+                  Text('(10:00 ~ 22:00)',style: TextStyle(color: Colors.grey),),
+                  SizedBox(height: 10,),
+                  Text('이용 가능 테이블', style: TextStyle(fontWeight: FontWeight.bold),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('대대: 3'),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text('중대: 2'),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text('포켓볼: 0'),
+                    ],
+                  )
+                ],
+              )
+            : IconButton(
+                icon: Icon(Icons.add),
+                iconSize: 30,
+                onPressed: () {
+                  print('자주가는 클럽 눌림');
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyFavoriteClub()));
+                },
+              ),
       ),
     );
   }

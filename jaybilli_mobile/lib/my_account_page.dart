@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:jaybilli_mobile/constant/contants.dart';
 import 'package:jaybilli_mobile/data/provider/my_user_data.dart';
 import 'package:jaybilli_mobile/firebase/firestore_provider.dart';
+import 'package:jaybilli_mobile/my_favorite_club.dart';
 import 'package:jaybilli_mobile/sign_in_page.dart';
 import 'package:provider/provider.dart';
 
@@ -204,7 +205,9 @@ class _AccountPageState extends State<MyAccountPage> {
                               )),
                           FlatButton(
                               onPressed: () {
-                                print('자주가는 클럽');
+                                Navigator.push(
+                                  context, MaterialPageRoute(builder: (context) => MyFavoriteClub())
+                                );
                               },
                               child: Column(
                                 children: [
