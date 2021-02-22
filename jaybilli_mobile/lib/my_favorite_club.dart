@@ -62,7 +62,6 @@ class _MyFavoriteClubState extends State<MyFavoriteClub> {
 
   void removeItem(int index){
     final item = items.removeAt(index);
-
     key.currentState.removeItem(index, (context, animation) => buildItem(item, index, animation));
   }
 
