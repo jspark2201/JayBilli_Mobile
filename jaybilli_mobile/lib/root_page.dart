@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jaybilli_mobile/home_page.dart';
 import 'package:jaybilli_mobile/my_account_page.dart';
+import 'package:jaybilli_mobile/search_club_page.dart';
 
 import 'constant/contants.dart';
 
@@ -38,7 +39,7 @@ class _RootPageState extends State<RootPage> {
   }
 
   List _pageList = [
-    Text('클럽 검색'),
+    SearchClubPage(),
     HomePage(),
     MyAccountPage(),
   ];

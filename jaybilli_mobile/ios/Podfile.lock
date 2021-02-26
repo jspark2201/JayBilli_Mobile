@@ -281,6 +281,8 @@ PODS:
     - GoogleUtilities/UserDefaults (~> 6.7)
     - PromisesObjC (~> 1.2)
   - Flutter (1.0.0)
+  - flutter_statusbarcolor (0.0.1):
+    - Flutter
   - fluttertoast (0.0.2):
     - Flutter
   - GoogleAppMeasurement (6.9.0):
@@ -344,6 +346,8 @@ PODS:
   - PromisesObjC (1.2.11)
   - url_launcher (0.0.1):
     - Flutter
+  - vibrate (0.0.1):
+    - Flutter
   - webview_media (0.0.1):
     - Flutter
 
@@ -352,8 +356,10 @@ DEPENDENCIES:
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
+  - flutter_statusbarcolor (from `.symlinks/plugins/flutter_statusbarcolor/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
+  - vibrate (from `.symlinks/plugins/vibrate/ios`)
   - webview_media (from `.symlinks/plugins/webview_media/ios`)
 
 SPEC REPOS:
@@ -386,10 +392,14 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
+  flutter_statusbarcolor:
+    :path: ".symlinks/plugins/flutter_statusbarcolor/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
+  vibrate:
+    :path: ".symlinks/plugins/vibrate/ios"
   webview_media:
     :path: ".symlinks/plugins/webview_media/ios"
 
@@ -407,6 +417,7 @@ SPEC CHECKSUMS:
   FirebaseFirestore: 9b2f1b9b9a6f2f0b6fb7484b9e32ab7e39243554
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_statusbarcolor: 8afb1071ed8c58be929f1e32b36c629771fd2259
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
   GoogleAppMeasurement: a6a3a066369828db64eda428cb2856dc1cdc7c4e
   GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
@@ -418,6 +429,7 @@ SPEC CHECKSUMS:
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
+  vibrate: 967ba16b8bd87d2fa3646472bb10429f1927c32f
   webview_media: 33604c2c1805f41bd0c6749c4d7de24b8cb4d81d
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
