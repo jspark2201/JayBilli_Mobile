@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jaybilli_mobile/constant/contants.dart';
 import 'package:jaybilli_mobile/data/my_favorite_club_item.dart';
+import 'package:jaybilli_mobile/favorite_club_edit_page.dart';
 import 'package:jaybilli_mobile/my_favorite_club_data.dart';
 import 'package:jaybilli_mobile/my_favorite_club_widget.dart';
 import 'package:vibrate/vibrate.dart';
@@ -16,6 +17,7 @@ class _MyFavoriteClubState extends State<MyFavoriteClub> {
 
   final items = List.from(MyFavoriteClubData.myFavoriteClubList);
   //List<String> items= ['새롬 당구장', '제이빌리', 'SBS 당구장', '나르샤 당구클럽'];
+  final test = 'abcde';
 
   @override
   void initState() {
@@ -41,6 +43,15 @@ class _MyFavoriteClubState extends State<MyFavoriteClub> {
         backgroundColor: Color(mainColor),
         centerTitle: true,
         title: Text('자주가는 클럽'),
+        actions: [
+          IconButton(
+            onPressed: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => FavoriteClubEditPage(title: test,)));
+            },
+            icon: Icon(Icons.edit),
+          )
+        ],
+
       ),
       body: SafeArea(
           child: Column(
@@ -163,7 +174,7 @@ class _MyFavoriteClubState extends State<MyFavoriteClub> {
                               onPressed: (){
 
                               },
-                              icon: Icon(Icons.menu_rounded)),
+                              icon: Icon(Icons.menu_rounded,)),
                         ),
                       ),
                       confirmDismiss: (direction) async {
